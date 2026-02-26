@@ -1,0 +1,19 @@
+- name: "demo_flow 测试流程"
+  description: "Demo API 流程示例"
+  cases:
+    - name: "demo"
+      request:
+        method: "GET"
+        path: "/AS/Suggestions?pt=page.serp&bq=vscode&ds=mobileweb&qry=vscode&csr=1&pths=1&rqry=1&zis=1&pf=1&cvid=B661748F02884A31A2CE95235A96DD70&ajaxreq=1"
+
+      extract:
+        s: $.s[0].q
+      validate:
+        - status_code: 200
+        - eq:
+            q: vscode
+        - ne:
+            ig: F1CCDEE7D0B74CD0AA0C2468C4B98BCA
+        - contain:
+            id: sa_5003
+        - sql: SELECT * FROM `sys_user` WHERE `sys_user`.`id` = 1 AND `sys_user`.`status` = 0;

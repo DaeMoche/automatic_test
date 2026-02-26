@@ -1,0 +1,15 @@
+- name: 退出登录
+  description: "用户退出登录"
+  request:
+    method: POST
+    path: api/user/logout
+    headers:
+      Authorization: ${access_token}
+  validate:
+    - eq:
+        code: 0
+    - contain:
+        message: ok!
+    - ne:
+        data: {}
+    - sql: SELECT * FROM `sys_user` WHERE `sys_user`.`id` = 1 AND `sys_user`.`status` = 0;

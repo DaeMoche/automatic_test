@@ -1,0 +1,18 @@
+- name: 登录
+  description: "用户登录"
+  request:
+    method: post
+    path: api/user/login
+    json:
+      username: jenifier
+      password: admin1234
+  extract:
+    access_token: $.data.token.access_token
+  validate:
+    - eq:
+        status: 1
+    - eq:
+        expires_at: 43200
+    - contain:
+        access_token: Bearer
+    - sql: SELECT * FROM `sys_user` WHERE `sys_user`.`id` = 1 AND `sys_user`.`status` = 1;

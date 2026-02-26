@@ -1,0 +1,57 @@
+- project: "硅谷甄选API"
+  module: "登录模块"
+  cases:
+    - name: 登录
+      description: "用户登录"
+      request:
+        method: post
+        path: api/user/login
+        json:
+          username: jenifier
+          password: admin1234
+
+      extract:
+        access_token: $.data.token.access_token
+      validate:
+        - eq:
+            status: 1
+        - eq:
+            expires_at: 43200
+        - contain:
+            access_token: Bearer
+        - sql: SELECT * FROM `sys_user` WHERE `sys_user`.`id` = 1 AND `sys_user`.`status` = 1;
+
+    - name: 获取用户信息
+      description: "获取用户信息"
+      request:
+        method: GET
+        path: api/user/info
+        headers:
+          Authorization: ${access_token()}
+      extract:
+        routes: $.data.routes
+        roles: $.data.roles
+        buttons: $.data.buttons
+      validate:
+        - eq:
+            id: 1
+        - eq:
+            username: jenifier
+        - contain:
+            nickname: alexqq
+
+    - name: 退出登录
+      description: "用户退出登录"
+      request:
+        method: POST
+        path: api/user/logout
+        headers:
+          Authorization: ${access_token}
+      validate:
+        - eq:
+            code: 0
+        - contain:
+            message: ok!
+        - ne:
+            data: {}
+        - sql: SELECT * FROM `sys_user` WHERE `sys_user`.`id` = 1 AND `sys_user`.`status` = 0;

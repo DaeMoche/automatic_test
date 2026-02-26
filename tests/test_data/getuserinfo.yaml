@@ -1,0 +1,18 @@
+- name: 获取用户信息
+  description: "获取用户信息"
+  request:
+    method: GET
+    path: api/user/info
+    headers:
+      Authorization: ${access_token()}
+  extract:
+    routes: $.data.routes
+    roles: $.data.roles
+    buttons: $.data.buttons
+  validate:
+    - eq:
+        id: 1
+    - eq:
+        username: jenifier
+    - contain:
+        nickname: ale

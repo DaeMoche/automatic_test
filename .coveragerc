@@ -1,0 +1,15 @@
+[run]
+# 仅统计项目代码（排除测试代码）
+# 忽略指定文件
+branch = True
+debug  = trace
+omit   = */__init__.py
+source = .
+
+[report]
+# 显示未覆盖的行
+# 隐藏已覆盖的文件
+# 覆盖率低于30%时报错
+fail_under   = 70
+show_missing = true
+skip_covered = true
