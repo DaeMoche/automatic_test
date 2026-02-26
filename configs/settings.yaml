@@ -1,39 +1,32 @@
 local:
-  
   server: # 服务
     host: 127.0.0.1
     port: 8080
 
   data_source: # 数据源
-
     mysql:
       host: 127.0.0.1
       port: 3306
       username: root
       password: 123456
       database: sv-go
-
     oracle: ····
 
 development:
-  
   server:
     host: 127.0.0.1
     port: 8081
 
   data_source:
-    
     mysql:
       host: 127.0.0.1
       port: 3306
       username: root
       password: 123456
       database: sv-go
-
     oracle: ····
 
 stage:
-  
   server:
     host: 127.0.0.1
     port: 8082
@@ -48,7 +41,6 @@ stage:
     oracle: ····
 
 prod:
-  
   server:
     host: 127.0.0.1
     port: 8083
