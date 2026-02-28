@@ -65,7 +65,7 @@ class Executor:
 
     def execute_test_flow(self, flow: Flow):
         """
-        单接口测试
+        业务流程测试
 
         :param case_info: 测试用例配置信息
         :type case_info: CaseConfig
