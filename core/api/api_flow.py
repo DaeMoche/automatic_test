@@ -15,7 +15,7 @@ class ReqestParameter:
     data: Dict[str, Any] = None
     cookies: Dict[str, Any] = None
     files: Dict[str, object] = None
-    timeout: int = 15
+    # timeout: int = 15
 
     def __post_init__(self):
         self.method = self.method.upper()
@@ -29,7 +29,7 @@ class Case:
     extract: Dict[str, Any] = None
     validate: Dict[str, Any] = None
     description: str = None
-    request: Dict[str, Any] = field(default_factory=dict)
+    request: ReqestParameter = field(default_factory=ReqestParameter)
     precondition: Dict[str, Any] = None
     postcondition: Dict[str, Any] = None
 

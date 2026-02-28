@@ -18,7 +18,7 @@ class Executor:
         :param case: 测试用例
         :type case: CaseConfig
         """
-        
+
         try:
             # 设置Allure报告标题和描述
             allure.dynamic.story(case.name)
@@ -36,7 +36,12 @@ class Executor:
 
             # 发送请求步骤
             with allure.step("发送请求"):
-                response = self.request.request(**params)
+                files = params.pop("files", None)
+                if files:
+                    for k, v in files.items():
+                            files = {k: open(v, "rb")}
+                            
+                response = self.request.request(files=files, **params)
 
             # 提取变量步骤（如果有）
             if case.extract:
@@ -123,4 +128,3 @@ class Executor:
             # 记录异常到Allure报告
             CustomAllure.attach(str(e), "多接口业务流程测试异常信息", "txt")
             raise
-

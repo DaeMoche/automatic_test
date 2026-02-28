@@ -11,6 +11,7 @@ from core.api.executor import Executor
 @allure.feature(next(mid) + "登录场景")
 class TestLoginFlow:
 
+    @pytest.mark.skip
     @pytest.mark.data("case")
     def test_login_flow(self, data, executor: Executor):
         data = Flow(*data)

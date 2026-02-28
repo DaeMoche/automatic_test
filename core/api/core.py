@@ -107,7 +107,9 @@ class Request:
     base_url: str = field(default="")
     context: Context = field(default_factory=Context)
 
-    def request(self, method: str, path: str, **kwargs: Dict[str, Any]) -> Response:
+    def request(
+        self, method: str, path: str, files: Any = None, **kwargs: Dict[str, Any]
+    ) -> Response:
         """
         发送http请求
 
@@ -128,7 +130,7 @@ class Request:
         self._record_request(method, url, **kwargs)
 
         # 发送请求
-        response = self.context.session.request(method, url, **kwargs)
+        response = self.context.session.request(method, url, files=files, **kwargs)
         response = self._encode(response)
 
         # 记录响应信息

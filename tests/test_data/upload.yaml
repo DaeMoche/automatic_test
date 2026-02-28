@@ -1,0 +1,19 @@
+- name: 上传文件
+  description: 用户上传文件
+  request:
+    method: POST
+    path: api/file/upload
+    headers:
+      Authorization: ${access_token()}
+    files:
+      file: E:\WorkSpace\Python\automatic_test\.gitignore
+    data:
+      business: test
+  extract:
+    id: $..id
+  validate:
+    - status_code: 200
+    - eq:
+      code: 0
+    - contain:
+        url: http://
